@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const path = require("path");
+app.use(express.static(__dirname));
 
 // Load environment variables
 dotenv.config();
@@ -45,8 +47,12 @@ app.post('/api/generate-exam', async (req, res) => {
         res.status(500).json({ error: { message: 'Internal Server Error' } });
     }
 });
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
 
 // Start Server
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
